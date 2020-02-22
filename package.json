@@ -1,0 +1,24 @@
+{
+  "name": "proxystore",
+  "version": "0.0.0",
+  "description": "Persistent object storage using proxies",
+  "main": "dist/index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebastianSpeitel/proxystore.git"
+  },
+  "keywords": [
+    "proxy",
+    "store",
+    "persistent",
+    "db",
+    "database"
+  ],
+  "author": "Sebastian Speitel",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/SebastianSpeitel/proxystore/issues"
+  },
+  "homepage": "https://github.com/SebastianSpeitel/proxystore#readme"
+}
