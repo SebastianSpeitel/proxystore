@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "Persistent object storage using proxies",
   "main": "dist/index.js",
-  "scripts": {},
+  "scripts": {
+    "prepare": "node_modules/rollup/dist/bin/rollup -c"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SebastianSpeitel/proxystore.git"
@@ -20,5 +22,15 @@
   "bugs": {
     "url": "https://github.com/SebastianSpeitel/proxystore/issues"
   },
-  "homepage": "https://github.com/SebastianSpeitel/proxystore#readme"
+  "homepage": "https://github.com/SebastianSpeitel/proxystore#readme",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^3.0.0",
+    "rollup": "^1.31.1",
+    "tslib": "^1.11.0",
+    "typescript": "^3.8.2"
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ]
 }
