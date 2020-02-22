@@ -5,7 +5,7 @@ Persistent object storage using proxies
 ## Usage
 
 ```javascript
-import { ProxyStore, FileHandler } from "proxystore";
+import { ProxyStore, FileHandler } from "@sebastianspeitel/proxystore";
 
 const handler = new FileHandler("store.json");
 const store = new ProxyStore(handler).store;
