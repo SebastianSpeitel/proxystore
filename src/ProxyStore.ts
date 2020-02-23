@@ -7,7 +7,7 @@ export interface ProxyStoreOptions<T extends object> {
 export default class ProxyStore<T extends object = object> implements ProxyHandler<any> {
     public declare proxy: T;
     public declare handler: IOHandler<T>;
-    readonly #store: T = {} as T;
+    readonly #store: T;
 
     constructor(handler: string | IOHandler<T>, { init = true }: ProxyStoreOptions<T> = {}) {
         if (typeof handler === 'string') {
@@ -17,11 +17,18 @@ export default class ProxyStore<T extends object = object> implements ProxyHandl
             this.handler = handler;
         }
 
-        if (init === true) {
+        if (!init) {
+            this.#store = {} as T;
+        }
+        else if (init === true) {
+            this.#store = {} as T;
             this.load()
         }
         else if (typeof init === 'object') {
-            this.#store = init || ({} as T);
+            this.#store = init;
+        }
+        else {
+            throw TypeError("Invalid type of init option")
         }
 
         this.proxy = new Proxy<T>(this.#store, this);

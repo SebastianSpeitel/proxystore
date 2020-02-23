@@ -1,4 +1,4 @@
-import { FileHandler, ProxyStore } from '../src'
+import { FileHandler, ProxyStore, proxyStore } from '../src'
 import * as fs from 'fs'
 import { expect } from 'chai';
 
@@ -9,6 +9,11 @@ describe("ProxyStore", function () {
     it("should require an argument", function () {
       //@ts-ignore
       expect(() => new ProxyStore()).to.throw();
+    });
+
+    it("should throw for invalid init options", function () {
+      //@ts-ignore
+      expect(() => new ProxyStore(handler, { init: 1 })).to.throw()
     });
   });
 
@@ -40,5 +45,42 @@ describe("ProxyStore", function () {
       const proxy = new ProxyStore(handler, { init: true }).proxy;
       expect(proxy).to.deep.equal(store);
     });
+
+    it("should use init as the inital store value when given", function () {
+      const store = { a: 1, b: "c", d: [1, 2] };
+      const p = new ProxyStore(handler, { init: store });
+      expect(p.proxy).to.deep.equal(store);
+    });
+
+  });
+
+  describe("saving", function () {
+    it("should save when properties are modified", function () {
+      const proxy = new ProxyStore<any>(handler, { init: {} }).proxy;
+      proxy.foo = 'bar';
+      const json = fs.readFileSync('test.json').toString();
+      const store = JSON.parse(json);
+      expect(store).to.deep.equal({ foo: 'bar' });
+    });
+
+    it("should reflect delting properties", function () {
+      const proxy = new ProxyStore<any>(handler, { init: { bar: 'foo' } }).proxy;
+      delete proxy.bar;
+      const json = fs.readFileSync('test.json').toString();
+      const store = JSON.parse(json);
+      expect(store).to.deep.equal({});
+    })
+  });
+
+  describe("proxyStore function", function () {
+    it("should require an argument", function () {
+      //@ts-ignore
+      expect(() => proxyStore()).to.throw();
+    });
+
+    it("should return an object", function () {
+      const proxy = proxyStore(handler);
+      expect(proxy).to.be.an("object");
+    })
   });
 });

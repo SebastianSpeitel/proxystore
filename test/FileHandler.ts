@@ -1,5 +1,6 @@
 import { FileHandler } from '../src'
 import { expect } from 'chai'
+import * as fs from 'fs'
 
 describe("FileHandler", function () {
   describe("constructor", function () {
@@ -21,5 +22,15 @@ describe("FileHandler", function () {
       const h = new FileHandler("test.json");
       expect(h.load).to.be.a("function");
     });
+
+    it("should return an empty object if file doesn't exist", function () {
+      try {
+        fs.unlinkSync('test.json');
+      } catch (e) {
+
+      }
+      const h = new FileHandler("test.json");
+      expect(h.load()).to.deep.equal({});
+    })
   });
 });
