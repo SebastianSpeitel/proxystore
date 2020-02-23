@@ -7,7 +7,7 @@ export interface ProxyStoreOptions<T extends object> {
 export default class ProxyStore<T extends object = object> implements ProxyHandler<any> {
     public declare proxy: T;
     public declare handler: IOHandler<T>;
-    #store: T = {} as T;
+    readonly #store: T = {} as T;
 
     constructor(handler: string | IOHandler<T>, { init = true }: ProxyStoreOptions<T> = {}) {
         if (typeof handler === 'string') {
@@ -32,7 +32,7 @@ export default class ProxyStore<T extends object = object> implements ProxyHandl
     }
 
     load() {
-        this.#store = this.handler.load()
+        Object.assign(this.#store, this.handler.load())
     }
 
     set(target: any, prop: PropertyKey, val: any) {

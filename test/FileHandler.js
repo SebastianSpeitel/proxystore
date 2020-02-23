@@ -11,14 +11,14 @@ describe("FileHandler", function() {
   describe("save", function() {
     it("should be a function", function() {
       const h = new FileHandler("test.json");
-      expect(typeof h.save).to.equal("function");
+      expect(h.save).to.be.a("function");
     });
   });
-  
+
   describe("load", function() {
     it("should be a function", function() {
       const h = new FileHandler("test.json");
-      expect(typeof h.load).to.equal("function");
+      expect(h.load).to.be.a("function");
     });
   });
 });
