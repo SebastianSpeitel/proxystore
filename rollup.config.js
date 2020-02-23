@@ -7,7 +7,7 @@ export default {
     dir: "dist",
     exports: "named"
   },
-  context: "globalThis",
+  context: "this",
   plugins: [ts()],
   external: ["fs"]
 };
