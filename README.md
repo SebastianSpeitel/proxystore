@@ -1,3 +1,5 @@
+![Tests](https://github.com/SebastianSpeitel/proxystore/workflows/Tests/badge.svg?branch=master)
+
 # proxystore
 
 Persistent object storage using proxies
