@@ -4,6 +4,7 @@
   "description": "Persistent object storage using proxies",
   "main": "dist/index.js",
   "scripts": {
+    "test": "node_modules/mocha/bin/mocha",
     "build": "node_modules/rollup/dist/bin/rollup -c",
     "prepublishOnly": "npm run build"
   },
@@ -25,6 +26,8 @@
   },
   "homepage": "https://github.com/SebastianSpeitel/proxystore#readme",
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.0.1",
     "rollup": "^1.31.1",
     "rollup-plugin-typescript2": "^0.26.0",
     "tslib": "^1.11.0",

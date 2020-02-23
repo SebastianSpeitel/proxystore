@@ -4,6 +4,7 @@ import * as fs from "fs";
 export default class FileHandler<T extends object> implements IOHandler<T> {
   declare path: string;
   constructor(path: string) {
+    if (!path) throw TypeError('Path argument required')
     this.path = path;
   }
 
