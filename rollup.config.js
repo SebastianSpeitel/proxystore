@@ -8,6 +8,6 @@ export default {
     exports: "named"
   },
   context: "this",
-  plugins: [ts()],
+  plugins: [ts({ tsconfigOverride: { compilerOptions: { rootDir: "src" } } })],
   external: ["fs"]
 };
