@@ -12,7 +12,7 @@ abstract class DeepProxy<T extends object = any> {
   private readonly _paths: WeakMap<object, PropertyKey[]> = new WeakMap();
   protected _root: T;
   private readonly _handler: ProxyHandler<any>;
-  public declare proxy: T;
+  public readonly proxy: T;
 
   constructor(root: T = {} as T) {
     if (typeof root !== "object") {

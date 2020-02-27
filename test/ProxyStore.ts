@@ -20,13 +20,7 @@ describe("ProxyStore", function() {
   describe("properties", function() {
     it("should have a property 'proxy' of type object", function() {
       const p = new ProxyStore(handler, { init: false });
-      expect(p.proxy).to.be.an("object");
-    });
-
-    it("shoudn't expose a store property", function() {
-      const p = new ProxyStore(handler, { init: false });
-      //@ts-ignore
-      expect(p.store).to.be.a("undefined");
+      expect(p.store).to.be.an("object");
     });
   });
 
@@ -36,26 +30,26 @@ describe("ProxyStore", function() {
       const p = new ProxyStore(handler, { init: false });
       fs.writeFileSync("test.json", JSON.stringify(store));
       p.load();
-      expect(p.proxy).to.deep.equal(store);
+      expect(p.store).to.deep.equal(store);
     });
 
     it("should load on init if init=true", function() {
       const store = { a: 1, b: "c", d: [1, 2, 4] };
       fs.writeFileSync("test.json", JSON.stringify(store));
       const p = new ProxyStore(handler, { init: true });
-      expect(p.proxy).to.deep.equal(store);
+      expect(p.store).to.deep.equal(store);
     });
 
     it("should use init as the inital store value when given", function() {
       const store = { a: 1, b: "c", d: [1, 2, 3] };
       const p = new ProxyStore(handler, { init: store });
-      expect(p.proxy).to.deep.equal(store);
+      expect(p.store).to.deep.equal(store);
     });
   });
 
   describe("saving", function() {
     it("should save when properties are modified", function() {
-      const proxy = new ProxyStore<any>(handler, { init: {} }).proxy;
+      const proxy = new ProxyStore<any>(handler, { init: {} }).store;
       proxy.foo = "bar";
       const json = fs.readFileSync("test.json").toString();
       const store = JSON.parse(json);
@@ -64,7 +58,7 @@ describe("ProxyStore", function() {
 
     it("should reflect delting properties", function() {
       const proxy = new ProxyStore<any>(handler, { init: { bar: "foo" } })
-        .proxy;
+        .store;
       delete proxy.bar;
       const json = fs.readFileSync("test.json").toString();
       const store = JSON.parse(json);

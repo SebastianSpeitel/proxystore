@@ -8,7 +8,6 @@ export interface ProxyStoreOptions<T extends object> {
 export default class ProxyStore<T extends object = object> extends DeepProxy<
   T
 > {
-  public declare readonly proxy: T;
   public declare handler: IOHandler<T>;
 
   constructor(
@@ -34,6 +33,15 @@ export default class ProxyStore<T extends object = object> extends DeepProxy<
     super(root);
 
     this.handler = handler;
+  }
+
+  get store(): T {
+    return this.proxy;
+  }
+
+  set store(store: T) {
+    // not 100% sure, this is safe
+    this._root = store;
   }
 
   save() {
