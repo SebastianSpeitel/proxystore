@@ -48,9 +48,12 @@ abstract class DeepProxy<T extends object = any> {
     return path.reduce((o, k) => o[k], this._root as any);
   }
 
+  /** get's only overwritten because properties can't be unconfigurable if the target property doesn't exist
+   * More info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor (Invariants)
+   * */
   getOwnPropertyDescriptor(
     path: PropertyKey[],
-    prop: string | number | symbol
+    prop: PropertyKey
   ): PropertyDescriptor | undefined {
     const target = this.getByPath(path);
     const descriptor = Reflect.getOwnPropertyDescriptor(target, prop);
@@ -67,9 +70,13 @@ abstract class DeepProxy<T extends object = any> {
     return val;
   }
 }
+/** Extends the defined DeepProxy by adding all other possible hooks */
 interface DeepProxy extends Required<HookMap> {}
 for (const key of Object.getOwnPropertyNames(Reflect) as HookKey[]) {
+  // Ignore already defined hooks
   if (DeepProxy.prototype[key]) continue;
+
+  // Create hook for all other traps
   DeepProxy.prototype[key] = function(
     this: DeepProxy,
     path: PropertyKey[],
@@ -78,7 +85,7 @@ for (const key of Object.getOwnPropertyNames(Reflect) as HookKey[]) {
     const target = this.getByPath(path);
     return Reflect[key](
       target,
-      //@ts-ignore
+      //@ts-ignore typescript miscalculates the length of args
       ...args
     );
   };
