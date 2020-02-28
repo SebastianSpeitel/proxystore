@@ -33,6 +33,9 @@ export default class ProxyStore<T extends object = object> extends DeepProxy<
     super(root);
 
     this.handler = handler;
+    if (typeof handler.handle === "function") {
+      handler.handle(this);
+    }
   }
 
   get store(): T {

@@ -45,4 +45,4 @@ store.baz; // doesn't work
 
 ## Handler
 
-You can provide your own handler. Any object with a `load` and `save` method works.
+You can provide your own handler. Any object with a `load` and `save` method works. An optional method `handle` gets invoked with the proxystore as a parameter.

@@ -1,7 +1,7 @@
-export type loadHandler<T extends object> = () => T;
-export type saveHandler<T extends object> = (store: T) => void | Promise<void>;
+import type { ProxyStore } from "../index";
 
 export default interface IOHandler<T extends object> {
-  load: loadHandler<T>;
-  save: saveHandler<T>;
+  load: () => T;
+  save: (store: T) => void | Promise<void>;
+  handle?: (proxyStore: ProxyStore<T>) => void;
 }
