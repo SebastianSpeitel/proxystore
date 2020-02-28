@@ -59,8 +59,9 @@ class DeepProxy<T extends object = any> {
     }
   }
 
-  /** get's only overwritten because properties can't be unconfigurable if the target property doesn't exist
-   * More info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor (Invariants)
+  /** Always configurable to comply with:
+   * > A property cannot be reported as non-configurable, if it does not exists as an own property of the target object or if it exists as a configurable own property of the target object.
+   * > https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor (Invariants)
    * */
   getOwnPropertyDescriptor(
     path: PropertyKey[],
