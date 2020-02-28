@@ -6,23 +6,22 @@ Persistent object storage using proxies
 
 ## Usage
 
+### Short way
 ```javascript
-import { ProxyStore, FileHandler } from "@sebastianspeitel/proxystore";
+import proxy, { ProxyStoreFS as ProxyStore } from "../dist";
 
-const handler = new FileHandler("store.json");
-const store = new ProxyStore(handler).store;
+const store = proxy(ProxyStoreFS, { path: "store.json" });
+store.foo = "bar";
 ```
 
-Now you can use `store` as any other object and it will be saved in `store.json`
+Now you can use `store` like any other object and it will be saved in `store.json`.
 
-## Options
+### Long way
+```javascript
+import { ProxyStoreFS as ProxyStore } from "../dist";
 
-```typescript
-export interface ProxyStoreOptions<T extends object> {
-  // true to load the initial store using the provided handler
-  // or provide an object to use as initial value
-  init?: T | boolean;
-}
+const store = new ProxyStore({ foo: "baz" }, { path: "store.json" }).store;
+store.foo = "bar";
 ```
 
 ## TypeScript
@@ -37,12 +36,26 @@ interface FooBar {
   bar: string;
 }
 
-const store = new ProxyStore<FooBar>(handler).store;
+const store = proxy<FooBar>(ProxyStore, { path: "store.json" });
 
 store.foo; // works
-store.baz; // doesn't work
+store.baz; // Property 'baz' does not exist on type 'FooBar'
 ```
 
-## Handler
+## Extensions
 
-You can provide your own handler. Any object with a `load` and `save` method works. An optional method `handle` gets invoked with the proxystore as a parameter.
+You can implement your own ways of serializing the store. Just extends the class `ProxyStore` overwrite the methods you want and call `proxy` with your own class as parameter.
+
+### Example
+
+```javascript
+class MyProxyStore extends ProxyStore {
+  get(path: PropertyKey[], prop: PropertyKey): any {
+    console.log(`Property ${[...path, prop].join(".")} requested`);
+    return super.get(path, prop);
+  }
+}
+
+const store = proxy({ foo: "bar" }, MyProxyStore);
+store.foo; // Property foo requested
+```
