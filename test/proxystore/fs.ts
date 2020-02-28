@@ -115,6 +115,7 @@ describe("ProxyStore fs", function() {
   describe("watching", function() {
     it("should load when the file changes", function(done) {
       const obj = { a: 1 };
+      fs.writeFileSync("watchtest.json", JSON.stringify({}));
       const p = new ProxyStore(
         {},
         {
