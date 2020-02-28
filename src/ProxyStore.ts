@@ -42,6 +42,7 @@ export default class ProxyStore<T extends object = object> extends DeepProxy<
   set store(store: T) {
     // not 100% sure, this is safe
     this._root = store;
+    this.save();
   }
 
   save() {

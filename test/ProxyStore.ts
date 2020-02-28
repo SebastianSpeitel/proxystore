@@ -64,6 +64,15 @@ describe("ProxyStore", function() {
       const store = JSON.parse(json);
       expect(store).to.deep.equal({});
     });
+
+    it("should allow replacing the store", function() {
+      const proxyStore = new ProxyStore<any>(handler, { init: { bar: "foo" } });
+      const obj = { foo: "bar" };
+      proxyStore.store = obj;
+      const json = fs.readFileSync("test.json").toString();
+      const store = JSON.parse(json);
+      expect(store).to.deep.equal(obj);
+    });
   });
 
   describe("proxyStore function", function() {
