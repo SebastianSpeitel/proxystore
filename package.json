@@ -7,8 +7,9 @@
     "mocha": "node_modules/mocha/bin/mocha -r ts-node/register test/**.ts",
     "test": "node_modules/nyc/bin/nyc.js npm run mocha",
     "coverage:html": "node_modules/nyc/bin/nyc.js --reporter=html npm run mocha",
+    "coverage:serve": "npm run coverage:html && serve coverage",
     "build": "node_modules/rollup/dist/bin/rollup -c",
-    "prepublishOnly": "npm run build"
+    "prepare": "(rm -r dist || true) && npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,7 @@
     "database"
   ],
   "author": "Sebastian Speitel",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/SebastianSpeitel/proxystore/issues"
   },
