@@ -8,7 +8,7 @@ type HookMap = {
   ) => ReturnType<Required<ProxyHandler<any>>[hook]>;
 };
 
-abstract class DeepProxy<T extends object = any> {
+class DeepProxy<T extends object = any> {
   private readonly _paths: WeakMap<object, PropertyKey[]> = new WeakMap();
   protected _root: T;
   private readonly _handler: ProxyHandler<any>;
@@ -50,6 +50,7 @@ abstract class DeepProxy<T extends object = any> {
       if (!obj) throw Error();
       return obj;
     } catch (e) {
+      /* istanbul ignore next */
       throw Error(
         `Trying to access property ${path.join(
           "."
