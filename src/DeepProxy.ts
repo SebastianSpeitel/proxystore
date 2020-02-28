@@ -45,7 +45,17 @@ abstract class DeepProxy<T extends object = any> {
   }
 
   getByPath(path: PropertyKey[]) {
-    return path.reduce((o, k) => o[k], this._root as any);
+    try {
+      const obj = path.reduce((o, k) => o[k], this._root as any);
+      if (!obj) throw Error();
+      return obj;
+    } catch (e) {
+      throw Error(
+        `Trying to access property ${path.join(
+          "."
+        )} failed. Probably because it was removed.`
+      );
+    }
   }
 
   /** get's only overwritten because properties can't be unconfigurable if the target property doesn't exist
