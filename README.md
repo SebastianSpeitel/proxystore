@@ -7,18 +7,20 @@ Persistent object storage using proxies
 ## Usage
 
 ### Short way
-```javascript
-import proxy, { ProxyStoreFS as ProxyStore } from "../dist";
 
-const store = proxy(ProxyStoreFS, { path: "store.json" });
+```javascript
+import proxy, { ProxyStoreJSON as ProxyStore } from "../src";
+
+const store = proxy(ProxyStore, { path: "store.json" });
 store.foo = "bar";
 ```
 
 Now you can use `store` like any other object and it will be saved in `store.json`.
 
 ### Long way
+
 ```javascript
-import { ProxyStoreFS as ProxyStore } from "../dist";
+import { ProxyStoreJSON as ProxyStore } from "../src";
 
 const store = new ProxyStore({ foo: "baz" }, { path: "store.json" }).store;
 store.foo = "bar";

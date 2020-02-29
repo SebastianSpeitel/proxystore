@@ -1,4 +1,4 @@
-import proxy, { ProxyStoreFS as ProxyStore } from "../src";
+import proxy, { ProxyStoreJSON as ProxyStore } from "../src";
 
 interface FooBar {
   foo: number;

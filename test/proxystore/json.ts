@@ -1,8 +1,8 @@
-import { ProxyStoreFS as ProxyStore } from "../../src";
+import { ProxyStoreJSON as ProxyStore } from "../../src";
 import { expect } from "chai";
 import * as fs from "fs";
 
-describe("ProxyStore fs", function() {
+describe("ProxyStore JSON", function() {
   describe("constructor", function() {
     it("should require an argument", function() {
       //@ts-ignore
@@ -116,7 +116,7 @@ describe("ProxyStore fs", function() {
     it("should load when the file changes", function(done) {
       const obj = { a: 1 };
       fs.writeFileSync("watchtest.json", JSON.stringify({}));
-      const p = new ProxyStore(
+      const p = new ProxyStore<any>(
         {},
         {
           watch: true,

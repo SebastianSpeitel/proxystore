@@ -3,7 +3,7 @@ import ProxyStore from "./proxystore/base";
 export { ProxyStore };
 
 export { default as DeepProxy } from "./DeepProxy";
-export { default as ProxyStoreFS } from "./proxystore/fs";
+export { default as ProxyStoreJSON } from "./proxystore/json";
 
 type GenericOptions = {
   [key: string]: any;
