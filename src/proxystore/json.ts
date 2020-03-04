@@ -5,9 +5,9 @@ type PrettyOption = Parameters<JSON["stringify"]>[2] | boolean;
 type Replacer = (this: any, key: string, value: any) => any | null;
 type Reviver = (this: any, key: string, value: any) => any | null;
 
-interface Options<T extends object> {
+interface Options {
   path: string;
-  init?: T | boolean;
+  init?: boolean;
   pretty?: PrettyOption;
   watch?: boolean;
   replacer?: Replacer;
@@ -35,7 +35,9 @@ function writeJSON(
   fs.writeFileSync(path, JSON.stringify(obj, replacer, pretty));
 }
 
-export default class ProxyStore<T extends object> extends ProxyStoreBase<T> {
+export default class ProxyStore<T extends object = any> extends ProxyStoreBase<
+  T
+> {
   private declare path: string;
   public declare pretty: PrettyOption;
   public declare replacer?: Replacer;
@@ -51,7 +53,7 @@ export default class ProxyStore<T extends object> extends ProxyStoreBase<T> {
       watch = false,
       replacer,
       reviver
-    }: Options<T> = {
+    }: Options = {
       path: ""
     }
   ) {

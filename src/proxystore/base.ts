@@ -1,8 +1,6 @@
 import DeepProxy from "../DeepProxy";
 
-export default class BaseProxyStore<
-  T extends object = any
-> extends DeepProxy<T> {
+class BaseProxyStore<T extends object = any> extends DeepProxy<T> {
   static ROOT = Symbol("ProxyStore root");
 
   constructor(root: T = {} as T) {
@@ -19,3 +17,8 @@ export default class BaseProxyStore<
     this.set([], BaseProxyStore.ROOT);
   }
 }
+interface BaseProxyStore<T extends object> {
+  new (root: T, options?: { [key: string]: any }): BaseProxyStore<T>;
+}
+
+export default BaseProxyStore;
