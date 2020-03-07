@@ -1,4 +1,4 @@
-![Tests](https://github.com/SebastianSpeitel/proxystore/workflows/Tests/badge.svg?branch=master)
+![Tests](https://github.com/SebastianSpeitel/proxystore/workflows/Tests/badge.svg?branch=master) [![install size](https://packagephobia.now.sh/badge?p=@sebastianspeitel/proxystore)](https://packagephobia.now.sh/result?p=@sebastianspeitel/proxystore)
 
 # proxystore
 
