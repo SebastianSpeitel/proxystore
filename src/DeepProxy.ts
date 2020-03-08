@@ -51,7 +51,7 @@ class DeepProxy<T extends object = any> {
       return obj;
     } catch (e) {
       /* istanbul ignore next */
-      throw Error(
+      throw ReferenceError(
         `Trying to access property ${path.join(
           "."
         )} failed. Probably because it was removed.`
