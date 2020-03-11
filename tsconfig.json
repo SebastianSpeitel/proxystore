@@ -11,8 +11,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "rootDir": "."
+    "noUnusedParameters": true
   },
   "include": ["src"]
 }
