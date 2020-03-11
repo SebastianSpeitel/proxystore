@@ -1,6 +1,6 @@
 {
   "name": "@sebastianspeitel/proxystore",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Persistent object storage using proxies",
   "main": "legacy/index.js",
   "module": "dist/index.js",
