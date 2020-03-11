@@ -5,8 +5,10 @@ export default {
   output: {
     format: "cjs",
     dir: "dist",
-    exports: "named"
+    exports: "named",
+    hoistTransitiveImports: false
   },
+  preserveModules: true,
   context: "this",
   plugins: [ts({ tsconfigOverride: { compilerOptions: { rootDir: "src" } } })],
   external: ["fs"]
