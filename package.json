@@ -2,14 +2,15 @@
   "name": "@sebastianspeitel/proxystore",
   "version": "1.2.3",
   "description": "Persistent object storage using proxies",
-  "main": "dist/index.js",
+  "main": "legacy/index.js",
+  "module": "dist/index.js",
   "scripts": {
     "mocha": "node_modules/mocha/bin/mocha -r ts-node/register test/*.ts test/**/*.ts",
     "test": "node_modules/nyc/bin/nyc.js npm run mocha --silent",
     "coverage:html": "node_modules/nyc/bin/nyc.js --reporter=html npm run mocha",
     "coverage:serve": "npm run coverage:html && serve coverage",
     "build": "node_modules/rollup/dist/bin/rollup -c",
-    "prepare": "(rm -r dist || true) && npm run build"
+    "prepare": "(rm -r dist || true) && (rm -r legacy || true) && npm run build"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
   },
   "files": [
     "dist",
+    "legacy",
     "LICENSE"
   ]
 }
