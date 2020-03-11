@@ -1,4 +1,4 @@
-type HookKey = keyof ProxyHandler<any>;
+export type HookKey = keyof ProxyHandler<any>;
 const hookKeys = Object.getOwnPropertyNames(Reflect) as HookKey[];
 
 type HookMap = {

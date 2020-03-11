@@ -4,6 +4,7 @@ export { ProxyStore };
 
 export { default as DeepProxy } from "./DeepProxy";
 export { default as ProxyStoreJSON } from "./proxystore/json";
+export { default as ProxyStoreHTTP } from "./proxystore/http";
 
 type GenericOptions = {
   [key: string]: any;

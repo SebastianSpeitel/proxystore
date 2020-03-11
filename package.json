@@ -32,6 +32,7 @@
     "@types/chai": "4.2.10",
     "@types/mocha": "7.0.2",
     "@types/node": "13.9.0",
+    "@types/node-fetch": "^2.5.5",
     "chai": "4.2.0",
     "mocha": "7.1.0",
     "nyc": "15.0.0",
@@ -44,5 +45,8 @@
   "files": [
     "dist",
     "LICENSE"
-  ]
+  ],
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
 }
