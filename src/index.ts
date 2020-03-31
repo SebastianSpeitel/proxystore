@@ -1,9 +1,9 @@
-import ProxyStore from "./proxystore/base";
+import ProxyStore from "./stores/base";
 
 export { ProxyStore };
 
 export { default as DeepProxy } from "./DeepProxy";
-export { default as ProxyStoreJSON } from "./proxystore/json";
+export { default as ProxyStoreJSON } from "./stores/json";
 
 type GenericOptions = {
   [key: string]: any;
