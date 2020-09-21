@@ -83,4 +83,13 @@ describe("DeepProxy", function() {
     delete p.a.b;
     expect(p.a).to.not.have.key("b");
   });
+
+  it("should return return the same deep property every time", function (){
+    const root = { a: { b: 1 } };
+    const p = new DeepProxy(root).proxy;
+
+    const obj1 = p.a;
+    const obj2 = p.a;
+    expect(obj1).be.equal(obj2);
+  });
 });

@@ -10,6 +10,7 @@ type HookMap = {
 
 class DeepProxy<T extends object = any> {
   private readonly _paths: WeakMap<object, PropertyKey[]> = new WeakMap();
+  private readonly _proxies = new WeakMap<object, object>();
   protected _root: T;
   private readonly _handler: ProxyHandler<any>;
   public readonly proxy: T;
@@ -38,10 +39,27 @@ class DeepProxy<T extends object = any> {
     this.proxy = this.addPath([], Object.getPrototypeOf(this._root));
   }
 
-  protected addPath(path: PropertyKey[], proto: object | null) {
-    const t = Array.isArray(proto) ? [] : Object.create(proto);
-    this._paths.set(t, path);
-    return new Proxy(t, this._handler);
+  protected addPath(path: PropertyKey[], original: object) {
+    // Check if deep object has been accessed before
+    const cached = this._proxies.get(original);
+    if (cached) {
+      return cached;
+    }
+
+    // Create empty object with same prototype
+    let target: any;
+    if (Array.isArray(original)) {
+      target = [];
+    } else {
+      target = Object.create(Object.getPrototypeOf(original));
+    }
+
+    // Create proxy and cache it
+    const proxy = new Proxy(target, this._handler);
+    this._proxies.set(original, proxy);
+    this._paths.set(target, path);
+
+    return proxy;
   }
 
   getByPath(path: PropertyKey[]) {
@@ -77,7 +95,7 @@ class DeepProxy<T extends object = any> {
     const target = this.getByPath(path);
     const val: unknown = Reflect.get(target, prop);
     if (typeof val === "object" && val) {
-      return this.addPath([...path, prop], Object.getPrototypeOf(val));
+      return this.addPath([...path, prop], val);
     }
     return val;
   }
