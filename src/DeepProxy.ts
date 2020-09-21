@@ -1,11 +1,13 @@
-type HookKey = keyof ProxyHandler<any>;
+type HookKey = keyof typeof Reflect;
 const hookKeys = Object.getOwnPropertyNames(Reflect) as HookKey[];
 
-type HookMap = {
-  [hook in HookKey]?: (
-    p: PropertyKey[],
-    ...args: any[]
-  ) => ReturnType<Required<ProxyHandler<any>>[hook]>;
+type Hook<H extends keyof typeof Reflect> = (
+  path: PropertyKey[],
+  ...args: Parameters<typeof Reflect[H]> extends [any, ...infer A] ? A : []
+) => ReturnType<typeof Reflect[H]>;
+
+type Hooks = {
+  [H in HookKey]: Hook<H>;
 };
 
 class DeepProxy<T extends object = any> {
@@ -21,12 +23,12 @@ class DeepProxy<T extends object = any> {
     }
     this._root = root;
 
-    const handler: ProxyHandler<any> = {};
+    const handler: ProxyHandler<object> = {};
     for (const hook of hookKeys) {
-      handler[hook] = (t: any, ...args: any[]) => {
+      handler[hook] = (t: object, ...args: any[]) => {
         const path = this._paths.get(t);
         if (!path) throw Error("Path not found");
-        //console.log(hook, ["root", ...path].join("."));
+
         return this[hook](
           path,
           //@ts-ignore
@@ -64,7 +66,7 @@ class DeepProxy<T extends object = any> {
 
   getByPath(path: PropertyKey[]) {
     try {
-      const obj = path.reduce((o, k) => o[k], this._root as any);
+      const obj = path.reduce((o: any, k) => o[k], this._root);
       if (!obj) throw Error();
       return obj;
     } catch (e) {
@@ -101,7 +103,7 @@ class DeepProxy<T extends object = any> {
   }
 }
 /** Extends the defined DeepProxy by adding all other possible hooks */
-interface DeepProxy extends Required<HookMap> {}
+interface DeepProxy extends Hooks {}
 for (const key of Object.getOwnPropertyNames(Reflect) as HookKey[]) {
   // Ignore already defined hooks
   if (DeepProxy.prototype[key]) continue;
