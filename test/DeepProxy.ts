@@ -71,14 +71,14 @@ describe("DeepProxy", function() {
   });
 
   it("should allow deleting properties", function() {
-    const root = { a: 1 };
+    const root: { a?: 1 } = { a: 1 };
     const p = new DeepProxy(root).proxy;
     delete p.a;
     expect(p).to.not.have.key("a");
   });
 
   it("should allow deleting nested properties", function() {
-    const root = { a: { b: 1 } };
+    const root: { a: { b?: 1 } } = { a: { b: 1 } };
     const p = new DeepProxy(root).proxy;
     delete p.a.b;
     expect(p.a).to.not.have.key("b");

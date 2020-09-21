@@ -14,7 +14,7 @@ class BaseProxyStore<T extends object = any> extends DeepProxy<T> {
   set store(store: T) {
     // not 100% sure, this is safe
     this._root = store;
-    this.set([], BaseProxyStore.ROOT);
+    this.set([], BaseProxyStore.ROOT, undefined);
   }
 }
 interface BaseProxyStore<T extends object> {
