@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/SebastianSpeitel/proxystore#readme",
   "devDependencies": {
-    "@types/chai": "4.2.15",
+    "@types/chai": "4.2.16",
     "@types/mocha": "8.2.2",
     "@types/node": "13.13.48",
     "chai": "4.3.4",
